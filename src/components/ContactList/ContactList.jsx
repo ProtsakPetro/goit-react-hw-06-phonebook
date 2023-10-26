@@ -4,13 +4,17 @@ const ContactList = ({ contacts, removeContact }) => {
   return (
     <>
       <ul>
-        {contacts.map((contact) => (
-          <ContactListItem
-            key={contact.id}
-            contact={contact}
-            removeContact={removeContact}
-          />
-        ))}
+        {Array.isArray(contacts) ? (
+          contacts.map((contact) => (
+            <ContactListItem
+              key={contact.id}
+              contact={contact}
+              removeContact={removeContact}
+            />
+          ))
+        ) : (
+          <li>No contacts available</li>
+        )}
       </ul>
     </>
   );
