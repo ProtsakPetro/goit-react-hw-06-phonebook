@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/js/main.ac8f21e7.js",
+    "main.css": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/css/main.08a9dd2b.css",
+    "main.js": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/js/main.c51bfc30.js",
     "index.html": "/ProtsakPetro/goit-react-hw-06-phonebook.git/index.html",
-    "main.ac8f21e7.js.map": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/js/main.ac8f21e7.js.map"
+    "main.08a9dd2b.css.map": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/css/main.08a9dd2b.css.map",
+    "main.c51bfc30.js.map": "/ProtsakPetro/goit-react-hw-06-phonebook.git/static/js/main.c51bfc30.js.map"
   },
   "entrypoints": [
-    "static/js/main.ac8f21e7.js"
+    "static/css/main.08a9dd2b.css",
+    "static/js/main.c51bfc30.js"
   ]
 }
