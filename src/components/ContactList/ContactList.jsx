@@ -1,20 +1,19 @@
-import ContactListItem from "components/ContactListItem/ContactListItem";
+import ContactListItem from 'components/ContactListItem/ContactListItem';
+import { useSelector } from 'react-redux';
 
-const ContactList = ({ contacts, removeContact }) => {
+const ContactList = () => {
+  const { contacts } = useSelector(state => state.contacts);
+  const { filter } = useSelector(state => state.filter);
+  const getFilterContacts = () => {
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase().trim())
+    );
+  };
+  const filterContacts = getFilterContacts();
   return (
     <>
       <ul>
-        {Array.isArray(contacts) ? (
-          contacts.map((contact) => (
-            <ContactListItem
-              key={contact.id}
-              contact={contact}
-              removeContact={removeContact}
-            />
-          ))
-        ) : (
-          <li>No contacts available</li>
-        )}
+        <ContactListItem contacts={filterContacts} />
       </ul>
     </>
   );

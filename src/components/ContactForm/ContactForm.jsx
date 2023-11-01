@@ -1,39 +1,37 @@
-import React, { useState } from "react";
+import { useState } from 'react';
 import {
   FormButton,
   Form,
   FormInputContainer,
   InputField,
   InputLabel,
-} from "./ContactForm.styled";
+} from './ContactForm.styled';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { Notify } from 'notiflix';
+import { addContactAction } from 'redux/contact/slice';
 
-function ContactForm({ addContactData }) {
-  const [formData, setFormData] = useState({
-    name: '',
-    number: ''
-  });
+const ContactForm = () => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const { contacts } = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
 
-  const addContact = (e) => {
+  const addContact = e => {
     e.preventDefault();
-    const newContact = {
-      name: formData.name,
-      number: formData.number,
-      id: nanoid()
-    };
-    addContactData(newContact, formData);
-    setFormData({
-      name: '',
-      number: ''
-    });
+    const isTrue = contacts.some(contact => name === contact.name);
+    if (isTrue) {
+      Notify.failure(`${name} is already in contacts`);
+      return;
+    }
+    dispatch(addContactAction({ name, number, id: nanoid() }));
+    setName('');
+    setNumber('');
   };
 
-  const getContactData = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const getContactData = ({ target: { name, value } }) => {
+    if (name === 'name') setName(value);
+    else setNumber(value);
   };
 
   return (
@@ -46,7 +44,7 @@ function ContactForm({ addContactData }) {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           autoComplete="off"
           onChange={getContactData}
-          value={formData.number}
+          value={number}
           required
         />
         <InputLabel>Number</InputLabel>
@@ -56,15 +54,14 @@ function ContactForm({ addContactData }) {
           pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           autoComplete="off"
-          value={formData.name}
+          value={name}
           onChange={getContactData}
           required
         />
         <InputLabel>Name</InputLabel>
       </FormInputContainer>
-      <FormButton type="submit">ADD CONTACTS</FormButton>
+      <FormButton type="submit">Add contact</FormButton>
     </Form>
   );
-}
-
+};
 export default ContactForm;
